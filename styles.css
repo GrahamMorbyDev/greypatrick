@@ -175,7 +175,7 @@ a {
   content: "";
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(5, 5, 7, 0.99) 0 35%, rgba(5, 5, 7, 0.92) 48%, rgba(5, 5, 7, 0.24) 66%, rgba(5, 5, 7, 0.45) 100%),
+    linear-gradient(90deg, rgba(5, 5, 7, 1) 0 50%, rgba(5, 5, 7, 0.96) 60%, rgba(5, 5, 7, 0.34) 74%, rgba(5, 5, 7, 0.45) 100%),
     linear-gradient(0deg, rgba(5, 5, 7, 0.95) 0, transparent 28%);
 }
 
@@ -238,11 +238,27 @@ a {
   color: #d7d7df;
 }
 
+.availability {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 1.35rem 0 0;
+  color: var(--white);
+  font-size: 0.96rem;
+  line-height: 1.45;
+}
+
+.availability span {
+  color: var(--green);
+  font-size: 0.65rem;
+  text-shadow: 0 0 16px rgba(140, 255, 0, 0.85);
+}
+
 .location {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  margin: 1.55rem 0 0;
+  margin: 1rem 0 0;
   color: var(--white);
   font-size: 0.98rem;
 }
@@ -254,9 +270,9 @@ a {
 
 .social-links {
   display: grid;
-  grid-template-columns: repeat(3, minmax(8.75rem, 1fr));
+  grid-template-columns: repeat(4, minmax(7.25rem, 1fr));
   gap: 0.9rem;
-  max-width: 34rem;
+  max-width: 42rem;
   margin-top: 2rem;
 }
 
@@ -305,7 +321,7 @@ a {
   pointer-events: none;
   background:
     radial-gradient(circle at 73% 45%, transparent 0 18rem, rgba(5, 5, 7, 0.18) 30rem, rgba(5, 5, 7, 0.64) 58rem),
-    linear-gradient(90deg, rgba(5, 5, 7, 0.95), rgba(5, 5, 7, 0.22) 43%, transparent 68%);
+    linear-gradient(90deg, rgba(5, 5, 7, 1) 0 48%, rgba(5, 5, 7, 0.72) 62%, transparent 78%);
 }
 
 .hero-art img {
@@ -315,7 +331,7 @@ a {
   width: min(72vw, 92rem);
   height: 100%;
   object-fit: cover;
-  object-position: 78% center;
+  object-position: 84% center;
   transform: translateY(-50%);
   filter: saturate(1.12) contrast(1.08);
 }
@@ -360,7 +376,7 @@ a {
 
   .hero::before {
     background:
-      linear-gradient(90deg, rgba(5, 5, 7, 0.95), rgba(5, 5, 7, 0.6)),
+      linear-gradient(90deg, rgba(5, 5, 7, 1) 0 66%, rgba(5, 5, 7, 0.82) 82%, rgba(5, 5, 7, 0.62)),
       linear-gradient(0deg, rgba(5, 5, 7, 0.98), rgba(5, 5, 7, 0.2) 54%, rgba(5, 5, 7, 0.74));
   }
 
@@ -372,7 +388,7 @@ a {
   .hero-art img {
     width: 100%;
     opacity: 0.58;
-    object-position: 66% center;
+    object-position: 84% center;
   }
 
   .code-rain {
@@ -416,14 +432,19 @@ a {
     margin-top: 0.75rem;
   }
 
+  .availability {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+  }
+
   .location {
-    margin-top: 0.8rem;
+    margin-top: 0.65rem;
     font-size: 0.84rem;
   }
 
   .social-links {
     gap: 0.7rem;
-    max-width: 29rem;
+    max-width: 34rem;
     margin-top: 1rem;
   }
 
@@ -493,6 +514,11 @@ a {
     font-size: 0.92rem;
   }
 
+  .availability {
+    align-items: flex-start;
+    font-size: 0.9rem;
+  }
+
   .location {
     align-items: flex-start;
     font-size: 0.9rem;
@@ -512,9 +538,9 @@ a {
 
   .hero-art img {
     width: 155%;
-    right: -47%;
-    opacity: 0.45;
-    object-position: center;
+    right: -78%;
+    opacity: 0.42;
+    object-position: 84% center;
   }
 
   .site-footer {
