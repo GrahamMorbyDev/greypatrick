@@ -1,7 +1,8 @@
 @extends('layouts.app', [
-  'title' => 'Services | Grey Patrick AI Systems Agency',
-  'description' => 'Website design, Laravel platform builds and OpenAI automation services by Grey Patrick.',
+  'title' => 'Services | West Sussex Websites, Laravel Platforms & AI Automation',
+  'description' => 'Website design, Laravel platform builds and OpenAI automation services for West Sussex and South Coast businesses by Grey Patrick.',
   'canonical' => url('/services'),
+  'keywords' => 'West Sussex website services, website design West Sussex, Laravel platform development, AI automation services, OpenAI automation consultant, business workflow automation, Chichester website designer, South Coast web developer',
   'shellClass' => 'content-shell',
 ])
 
@@ -10,8 +11,8 @@
     <p class="eyebrow">Services</p>
       <h1 id="page-title">Websites, platforms and AI workflows built with a practical plan.</h1>
     <p>
-      A focused set of services for businesses that need visible polish,
-      practical engineering and smarter workflows in one joined-up build.
+      A focused set of services for West Sussex and South Coast businesses that
+      need visible polish, practical engineering and smarter workflows in one joined-up build.
     </p>
     <p>
       Grounded in 15+ years of industry experience with Laravel and web
@@ -40,19 +41,19 @@
     <article>
       <p class="eyebrow">01 / Websites</p>
       <h2>Modern websites that make the offer clear.</h2>
-      <p>Ideal for businesses that need a sharper public presence, stronger messaging and a site that turns interest into enquiries.</p>
+      <p>Ideal for local and founder-led businesses that need a sharper public presence, stronger messaging and a site that turns interest into enquiries.</p>
       <ul>
         <li>Homepage and landing page design</li>
         <li>Responsive build and performance basics</li>
         <li>Quote/contact forms and conversion paths</li>
-        <li>SEO foundations and launch checks</li>
+        <li>Local SEO foundations and launch checks</li>
       </ul>
     </article>
 
     <article>
       <p class="eyebrow">02 / AI Automation</p>
       <h2>OpenAI workflows for repeated business tasks.</h2>
-      <p>Useful when you are spending time on content, admin, support, research or internal processes that should be systemised.</p>
+      <p>Useful when your business is spending time on content, admin, support, research or internal processes that should be systemised.</p>
       <ul>
         <li>AI assistants and internal tools</li>
         <li>Content and research workflows</li>

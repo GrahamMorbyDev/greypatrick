@@ -1,7 +1,8 @@
 @extends('layouts.app', [
-  'title' => 'Blog | Grey Patrick',
-  'description' => 'Articles from Grey Patrick on websites, AI automation, Laravel platforms and practical digital systems.',
+  'title' => 'Blog | AI, Websites, Laravel & Business Systems',
+  'description' => 'Articles from Grey Patrick on website strategy, AI automation, Laravel platforms, Codex workflows and practical digital systems for businesses.',
   'canonical' => route('blog.index'),
+  'keywords' => 'Grey Patrick blog, AI automation blog, Laravel development articles, website strategy West Sussex, Codex workflows, OpenAI workflows, business systems blog',
   'shellClass' => 'content-shell',
 ])
 

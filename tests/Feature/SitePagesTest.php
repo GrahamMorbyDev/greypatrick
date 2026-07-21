@@ -40,6 +40,33 @@ class SitePagesTest extends TestCase
             ->assertSee('https://gameshopcosham.com/', false);
     }
 
+    public function test_homepage_has_local_seo_metadata(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('West Sussex Website Design, Laravel &amp; AI Systems', false)
+            ->assertSee('West Sussex website design', false)
+            ->assertSee('application/ld+json', false)
+            ->assertSee('ProfessionalService', false)
+            ->assertSee('West Sussex', false);
+    }
+
+    public function test_search_files_render(): void
+    {
+        $this->get('/robots.txt')
+            ->assertOk()
+            ->assertHeader('content-type', 'text/plain; charset=UTF-8')
+            ->assertSee('Sitemap:', false)
+            ->assertSee('/sitemap.xml', false);
+
+        $this->get('/sitemap.xml')
+            ->assertOk()
+            ->assertHeader('content-type', 'application/xml; charset=UTF-8')
+            ->assertSee('<loc>'.route('home').'</loc>', false)
+            ->assertSee('<loc>'.route('services').'</loc>', false)
+            ->assertSee('<loc>'.route('quote').'</loc>', false);
+    }
+
     public function test_published_blog_posts_render_publicly(): void
     {
         $post = BlogPost::create([

@@ -1,7 +1,8 @@
 @extends('layouts.app', [
-  'title' => 'Project Quote | Grey Patrick AI Systems Agency',
-  'description' => 'Request a project quote from Grey Patrick for websites, Laravel platforms and AI automation systems.',
+  'title' => 'Request a Quote | West Sussex Website & AI Systems Projects',
+  'description' => 'Request a project quote from Grey Patrick for business websites, Laravel platforms and AI automation systems in West Sussex and across the South Coast.',
   'canonical' => url('/quote'),
+  'keywords' => 'website quote West Sussex, website redesign quote, Laravel development quote, AI automation quote, OpenAI workflow quote, business website quote, South Coast web developer',
   'shellClass' => 'content-shell',
 ])
 
@@ -11,7 +12,7 @@
     <h1 id="page-title">Tell me what you need built.</h1>
     <p>
       Share the essentials and I’ll come back with a clear recommendation,
-      estimated scope and sensible next steps for the website, platform or automation.
+      estimated scope and sensible next steps for your website, platform or automation.
     </p>
   </section>
 
@@ -20,7 +21,7 @@
       <img class="aside-image" src="{{ asset('assets/grey-patrick-portrait.png') }}" alt="Portrait of Grey Patrick">
       <p class="eyebrow">Good Fit For</p>
       <ul>
-        <li>New websites and redesigns</li>
+        <li>New websites and redesigns for West Sussex businesses</li>
         <li>Landing pages and lead capture</li>
         <li>Laravel portals and dashboards</li>
         <li>AI features and OpenAI workflows</li>

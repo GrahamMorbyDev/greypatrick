@@ -2,7 +2,34 @@
   'title' => $post->title.' | Grey Patrick',
   'description' => $post->excerpt ?? 'An article by Grey Patrick.',
   'canonical' => route('blog.show', $post),
+  'keywords' => 'Grey Patrick, AI automation, Laravel development, website strategy, business systems, OpenAI workflows, West Sussex web developer',
   'shellClass' => 'content-shell',
+  'structuredData' => [
+      '@context' => 'https://schema.org',
+      '@type' => 'BlogPosting',
+      'headline' => $post->title,
+      'description' => $post->excerpt ?? 'An article by Grey Patrick.',
+      'image' => $post->image ? asset('storage/'.$post->image) : asset('assets/grey-patrick-workflow-desk.png'),
+      'datePublished' => optional($post->published_at)->toIso8601String(),
+      'dateModified' => optional($post->updated_at)->toIso8601String(),
+      'author' => [
+          '@type' => 'Person',
+          'name' => $post->author,
+          'url' => url('/'),
+      ],
+      'publisher' => [
+          '@type' => 'Organization',
+          'name' => 'Grey Patrick',
+          'logo' => [
+              '@type' => 'ImageObject',
+              'url' => asset('assets/apple-touch-icon.png'),
+          ],
+      ],
+      'mainEntityOfPage' => [
+          '@type' => 'WebPage',
+          '@id' => route('blog.show', $post),
+      ],
+  ],
 ])
 
 @section('content')

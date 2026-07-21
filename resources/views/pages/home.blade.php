@@ -1,18 +1,19 @@
 @extends('layouts.app', [
-  'title' => 'Grey Patrick | AI Systems Agency',
+  'title' => 'Grey Patrick | West Sussex Website Design, Laravel & AI Systems',
   'canonical' => url('/'),
-  'description' => 'Grey Patrick designs and builds professional websites, Laravel platforms and practical AI automation systems for ambitious businesses.',
-  'keywords' => 'Grey Patrick, Graham Patrick, AI Systems Agency, AI websites, Laravel developer, OpenAI developer, Codex workflows, AI automation, website design, South Coast England',
+  'description' => 'Grey Patrick builds professional websites, Laravel platforms and practical AI automation systems for West Sussex businesses and South Coast organisations.',
+  'keywords' => 'West Sussex website design, website designer West Sussex, Laravel developer West Sussex, AI automation West Sussex, OpenAI consultant UK, Grey Patrick, Graham Patrick, AI systems agency, business websites South Coast, Chichester web design, Worthing web design',
 ])
 
 @section('content')
   <section class="home-hero section-pad">
     <div class="hero-copy">
-      <p class="eyebrow">AI Systems Consultant / South Coast UK</p>
+      <p class="eyebrow">West Sussex AI Systems & Website Consultant</p>
       <h1 id="page-title">Professional websites and practical AI systems for growing businesses.</h1>
       <p class="hero-lede">
-        I help businesses improve how they present themselves online, capture
-        enquiries and use AI workflows to save time behind the scenes.
+        I help West Sussex and South Coast businesses improve how they present
+        themselves online, capture better enquiries and use AI workflows to save
+        time behind the scenes.
       </p>
 
       <div class="hero-actions">
@@ -23,7 +24,7 @@
       <dl class="signal-row" aria-label="Business signals">
         <div>
           <dt>Focus</dt>
-          <dd>Websites and automation</dd>
+          <dd>Business websites and automation</dd>
         </div>
         <div>
           <dt>Experience</dt>
@@ -35,7 +36,7 @@
         </div>
         <div>
           <dt>Status</dt>
-          <dd>Open to work</dd>
+          <dd>Open to West Sussex business projects</dd>
         </div>
       </dl>
     </div>
@@ -64,7 +65,7 @@
       <article>
         <span>01</span>
         <h3>Professional Websites</h3>
-        <p>Fast, responsive websites with clear messaging, strong calls to action, SEO foundations and contact flows that make enquiries easier.</p>
+        <p>Fast, responsive websites with clear messaging, strong calls to action, local SEO foundations and contact flows that make enquiries easier.</p>
       </article>
       <article>
         <span>02</span>
@@ -85,7 +86,7 @@
       <h2>Live projects with practical outcomes.</h2>
       <p>
         Recent website builds focused on clear positioning, responsive layouts
-        and making it easier for visitors to take the next step.
+        and making it easier for local visitors and business customers to take the next step.
       </p>
       <a class="text-link" href="{{ route('work') }}">View all work</a>
     </div>
@@ -119,8 +120,8 @@
       <h2>Clear thinking, calm delivery and systems that make sense.</h2>
       <p>
         The goal is not to add technology for the sake of it. It is to understand
-        the work, design the right digital experience and build tools that help
-        the business move faster.
+        the business, design the right digital experience and build tools that help
+        the organisation move faster.
       </p>
       <p>
         My core delivery experience is grounded in 15+ years of industry work
@@ -157,7 +158,7 @@
 
   <section class="section-pad cta-section">
     <p class="eyebrow">Open to Work</p>
-    <h2>Need a better website, a smarter workflow or a custom platform?</h2>
+    <h2>Need a better website, a smarter workflow or a custom Laravel platform?</h2>
     <a class="button button-primary" href="{{ route('quote') }}">Request a Project Quote</a>
   </section>
 @endsection

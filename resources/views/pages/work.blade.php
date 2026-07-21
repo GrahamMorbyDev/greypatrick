@@ -1,7 +1,8 @@
 @extends('layouts.app', [
-  'title' => 'Work | Grey Patrick AI Systems Agency',
-  'description' => 'Selected websites and digital systems by Grey Patrick, including BiteSaavy, Chichester 3D Printing and Game Shop Cosham.',
+  'title' => 'Work | Website Projects for South Coast Businesses',
+  'description' => 'Selected website projects by Grey Patrick for South Coast businesses, including BiteSaavy, Chichester 3D Printing and Game Shop Cosham.',
   'canonical' => url('/work'),
+  'keywords' => 'Grey Patrick portfolio, West Sussex website portfolio, South Coast website projects, BiteSaavy, Chichester 3D Printing, Game Shop Cosham, local business websites, responsive website design',
   'shellClass' => 'content-shell',
 ])
 
@@ -11,7 +12,7 @@
     <h1 id="page-title">Websites and digital systems with practical outcomes.</h1>
     <p>
       A focused look at live projects across food tech, local services and retail,
-      built around clarity, responsive design and simple enquiry paths.
+      built around clarity, responsive design, local search visibility and simple enquiry paths.
     </p>
   </section>
 
@@ -22,7 +23,7 @@
       <h2>Each project is built around clarity, trust and the next useful action.</h2>
       <p>
         The work below is deliberately practical: clear pages, responsive layouts,
-        easy contact routes and a brand presence that helps visitors understand the offer.
+        easy contact routes and a brand presence that helps visitors understand the offer quickly.
       </p>
     </div>
   </section>
@@ -41,7 +42,7 @@
         <li>Website Build</li>
         <li>Responsive UI</li>
         <li>Brand Direction</li>
-        <li>SEO Basics</li>
+        <li>SEO Foundations</li>
       </ul>
       <a class="card-link" href="https://bitesaavy.com/" target="_blank" rel="noopener noreferrer">Visit Site</a>
     </article>
@@ -54,7 +55,7 @@
       </div>
       <p class="card-label">Local Service Website</p>
       <h2>Chichester 3D Printing</h2>
-      <p>A service-led website for a specialist 3D printing business, built to explain the offer quickly and make enquiries easy.</p>
+      <p>A service-led website for a specialist Chichester 3D printing business, built to explain the offer quickly and make enquiries easy.</p>
       <ul class="tag-list" aria-label="Chichester 3D Printing services">
         <li>Service Pages</li>
         <li>Local SEO</li>
@@ -72,7 +73,7 @@
       </div>
       <p class="card-label">Independent Retail Website</p>
       <h2>Game Shop Cosham</h2>
-      <p>A bold website for an independent games retailer, focused on local discovery, simple navigation and a strong shop identity.</p>
+      <p>A bold website for an independent games retailer near Portsmouth, focused on local discovery, simple navigation and a strong shop identity.</p>
       <ul class="tag-list" aria-label="Game Shop Cosham services">
         <li>Retail Web</li>
         <li>Local Presence</li>

@@ -1,7 +1,8 @@
 @extends('layouts.app', [
-  'title' => 'Contact | Grey Patrick AI Systems Agency',
-  'description' => 'Contact Grey Patrick for websites, Laravel platforms, OpenAI automation and software engineering enquiries.',
+  'title' => 'Contact | Grey Patrick West Sussex Web & AI Systems',
+  'description' => 'Contact Grey Patrick for West Sussex website projects, Laravel platforms, OpenAI automation, Codex workflows and software engineering enquiries.',
   'canonical' => url('/contact'),
+  'keywords' => 'contact Grey Patrick, West Sussex web developer, AI automation consultant West Sussex, Laravel developer contact, OpenAI workflow consultant, Graham Patrick',
   'shellClass' => 'content-shell',
 ])
 
@@ -10,7 +11,7 @@
     <p class="eyebrow">Contact</p>
     <h1 id="page-title">Let’s build something useful and commercially sharp.</h1>
     <p>
-      For websites, Laravel platforms, AI automation, Codex workflows or collaboration enquiries.
+      For West Sussex website projects, Laravel platforms, AI automation, Codex workflows or collaboration enquiries.
     </p>
   </section>
 
