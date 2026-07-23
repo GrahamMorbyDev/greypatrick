@@ -1,8 +1,8 @@
 @extends('layouts.app', [
   'title' => 'Work | Website Projects for South Coast Businesses',
-  'description' => 'Selected website projects by Grey Patrick for South Coast businesses, including BiteSaavy, Chichester 3D Printing and Game Shop Cosham.',
+  'description' => 'Selected website and digital platform projects by Grey Patrick, including Digital Content Engine, Rachel Goodall, BiteSaavy, Chichester 3D Printing and Game Shop Cosham.',
   'canonical' => url('/work'),
-  'keywords' => 'Grey Patrick portfolio, West Sussex website portfolio, South Coast website projects, BiteSaavy, Chichester 3D Printing, Game Shop Cosham, local business websites, responsive website design',
+  'keywords' => 'Grey Patrick portfolio, West Sussex website portfolio, South Coast website projects, Digital Content Engine, Rachel Goodall, BiteSaavy, Chichester 3D Printing, Game Shop Cosham, local business websites, responsive website design',
   'shellClass' => 'content-shell',
 ])
 
@@ -11,8 +11,9 @@
     <p class="eyebrow">Selected Work</p>
     <h1 id="page-title">Websites and digital systems with practical outcomes.</h1>
     <p>
-      A focused look at live projects across food tech, local services and retail,
-      built around clarity, responsive design, local search visibility and simple enquiry paths.
+      A focused look at live projects across AI content systems, coaching,
+      food tech, local services and retail, built around clarity, responsive
+      design, local search visibility and simple enquiry paths.
     </p>
   </section>
 
@@ -29,6 +30,42 @@
   </section>
 
   <section class="section-pad work-grid">
+    <article class="showcase-card">
+      <div class="work-shot work-shot-dce" aria-hidden="true">
+        <div class="shot-browser"><span></span><span></span><span></span></div>
+        <div class="shot-hero"></div>
+        <div class="shot-rows"><i></i><i></i><i></i></div>
+      </div>
+      <p class="card-label">AI Content Platform</p>
+      <h2>Digital Content Engine</h2>
+      <p>A content system and platform presence built around AI-supported publishing workflows, clear positioning and practical automation.</p>
+      <ul class="tag-list" aria-label="Digital Content Engine services">
+        <li>Platform Design</li>
+        <li>AI Workflow</li>
+        <li>Content System</li>
+        <li>Laravel Build</li>
+      </ul>
+      <a class="card-link" href="https://digitalcontentengine.com/" target="_blank" rel="noopener noreferrer">Visit Site</a>
+    </article>
+
+    <article class="showcase-card">
+      <div class="work-shot work-shot-rachel" aria-hidden="true">
+        <div class="shot-browser"><span></span><span></span><span></span></div>
+        <div class="shot-hero"></div>
+        <div class="shot-rows"><i></i><i></i><i></i></div>
+      </div>
+      <p class="card-label">Personal Brand Website</p>
+      <h2>Rachel Goodall</h2>
+      <p>A professional personal brand website shaped around trust, clear messaging and an easy route for visitors to understand the offer.</p>
+      <ul class="tag-list" aria-label="Rachel Goodall services">
+        <li>Website Build</li>
+        <li>Personal Brand</li>
+        <li>Responsive UI</li>
+        <li>Contact Flow</li>
+      </ul>
+      <a class="card-link" href="https://rachelgoodall.com/" target="_blank" rel="noopener noreferrer">Visit Site</a>
+    </article>
+
     <article class="showcase-card">
       <div class="work-shot work-shot-bitesaavy" aria-hidden="true">
         <div class="shot-browser"><span></span><span></span><span></span></div>

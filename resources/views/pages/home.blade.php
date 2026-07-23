@@ -92,6 +92,18 @@
     </div>
 
     <div class="proof-grid">
+      <a href="https://digitalcontentengine.com/" target="_blank" rel="noopener noreferrer">
+        <span>AI Content Platform</span>
+        <strong>Digital Content Engine</strong>
+        <p>AI-supported publishing workflows and a clearer platform presence for content operations.</p>
+        <em>Visit site</em>
+      </a>
+      <a href="https://rachelgoodall.com/" target="_blank" rel="noopener noreferrer">
+        <span>Personal Brand</span>
+        <strong>Rachel Goodall</strong>
+        <p>A calm, professional website shaped around trust, positioning and simple enquiry routes.</p>
+        <em>Visit site</em>
+      </a>
       <a href="https://bitesaavy.com/" target="_blank" rel="noopener noreferrer">
         <span>Food Tech</span>
         <strong>BiteSaavy</strong>

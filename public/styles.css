@@ -515,9 +515,12 @@ a {
 .service-list,
 .proof-grid,
 .process-list,
-.service-detail-grid,
-.work-grid {
+.service-detail-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.work-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
 }
 
 .service-list article,
@@ -711,6 +714,41 @@ a {
 
 .shot-rows i:nth-child(3) {
   width: 82%;
+}
+
+.work-shot-dce {
+  background:
+    radial-gradient(circle at 72% 24%, rgba(111, 148, 255, 0.24), transparent 7rem),
+    linear-gradient(135deg, rgba(184, 148, 95, 0.16), rgba(244, 239, 231, 0.06)),
+    var(--surface-soft);
+}
+
+.work-shot-dce .shot-hero {
+  width: 46%;
+  background: rgba(111, 148, 255, 0.5);
+}
+
+.work-shot-dce .shot-rows i:nth-child(2) {
+  background: rgba(111, 148, 255, 0.48);
+}
+
+.work-shot-rachel {
+  background:
+    radial-gradient(circle at 18% 76%, rgba(214, 167, 112, 0.28), transparent 7rem),
+    linear-gradient(135deg, rgba(244, 239, 231, 0.08), rgba(184, 148, 95, 0.16)),
+    var(--surface-soft);
+}
+
+.work-shot-rachel .shot-hero {
+  right: 0.9rem;
+  left: auto;
+  width: 42%;
+  border-radius: 999px;
+  background: rgba(244, 239, 231, 0.5);
+}
+
+.work-shot-rachel .shot-rows i:nth-child(2) {
+  background: rgba(214, 167, 112, 0.5);
 }
 
 .tag-list {

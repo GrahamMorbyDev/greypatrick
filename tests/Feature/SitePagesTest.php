@@ -32,9 +32,13 @@ class SitePagesTest extends TestCase
     {
         $this->get('/work')
             ->assertOk()
+            ->assertSee('Digital Content Engine')
+            ->assertSee('Rachel Goodall')
             ->assertSee('BiteSaavy')
             ->assertSee('Chichester 3D Printing')
             ->assertSee('Game Shop Cosham')
+            ->assertSee('https://digitalcontentengine.com/', false)
+            ->assertSee('https://rachelgoodall.com/', false)
             ->assertSee('https://bitesaavy.com/', false)
             ->assertSee('https://chichester3dprinting.com/', false)
             ->assertSee('https://gameshopcosham.com/', false);
