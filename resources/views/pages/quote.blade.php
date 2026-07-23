@@ -100,6 +100,9 @@
       @isset($humanChallenge)
         <label>
           Quick anti-spam check: what is {{ $humanChallenge['left'] }} + {{ $humanChallenge['right'] }}?
+          <input type="hidden" name="human_left" value="{{ $humanChallenge['left'] }}">
+          <input type="hidden" name="human_right" value="{{ $humanChallenge['right'] }}">
+          <input type="hidden" name="human_token" value="{{ $humanChallenge['token'] }}">
           <input type="number" name="human_answer" inputmode="numeric" required>
         </label>
       @endisset

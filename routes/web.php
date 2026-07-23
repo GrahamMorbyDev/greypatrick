@@ -5,33 +5,39 @@ use App\Models\ContactEnquiry;
 use App\Models\QuoteEnquiry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 
 if (! function_exists('enquiry_challenge')) {
-    function enquiry_challenge(Request $request, string $key): array
+    function enquiry_challenge(): array
     {
         $challenge = [
             'left' => random_int(3, 9),
             'right' => random_int(2, 8),
         ];
 
-        $request->session()->put($key, [
-            ...$challenge,
-            'answer' => $challenge['left'] + $challenge['right'],
-        ]);
+        $challenge['token'] = hash_hmac(
+            'sha256',
+            $challenge['left'].'|'.$challenge['right'],
+            Config::get('app.key')
+        );
 
         return $challenge;
     }
 }
 
 if (! function_exists('validate_enquiry_challenge')) {
-    function validate_enquiry_challenge(Request $request, string $key): void
+    function validate_enquiry_challenge(Request $request): void
     {
-        $expected = $request->session()->pull($key.'.answer');
+        $left = (int) $request->input('human_left');
+        $right = (int) $request->input('human_right');
+        $expectedToken = hash_hmac('sha256', $left.'|'.$right, Config::get('app.key'));
+        $validToken = hash_equals($expectedToken, (string) $request->input('human_token'));
+        $validAnswer = (int) $request->input('human_answer') === $left + $right;
 
-        if ($expected === null || (int) $request->input('human_answer') !== (int) $expected) {
+        if (! $validToken || ! $validAnswer) {
             throw ValidationException::withMessages([
                 'human_answer' => 'Please answer the quick anti-spam question correctly.',
             ]);
@@ -90,11 +96,11 @@ Route::get('/sitemap.xml', function () {
 Route::view('/', 'pages.home')->name('home');
 Route::view('/services', 'pages.services')->name('services');
 Route::view('/work', 'pages.work')->name('work');
-Route::get('/quote', fn (Request $request) => view('pages.quote', [
-    'humanChallenge' => enquiry_challenge($request, 'quote_challenge'),
+Route::get('/quote', fn () => view('pages.quote', [
+    'humanChallenge' => enquiry_challenge(),
 ]))->name('quote');
-Route::get('/contact', fn (Request $request) => view('pages.contact', [
-    'humanChallenge' => enquiry_challenge($request, 'contact_challenge'),
+Route::get('/contact', fn () => view('pages.contact', [
+    'humanChallenge' => enquiry_challenge(),
 ]))->name('contact');
 Route::get('/blog', function () {
     return view('pages.blog.index', [
@@ -129,13 +135,16 @@ Route::post('/quote', function (Request $request) {
         'timeframe' => ['nullable', 'string', 'max:80'],
         'message' => ['required', 'string', 'max:4000'],
         'company_website' => ['prohibited'],
+        'human_left' => ['required', 'integer'],
+        'human_right' => ['required', 'integer'],
+        'human_token' => ['required', 'string'],
         'human_answer' => ['required', 'integer'],
     ]);
 
-    validate_enquiry_challenge($request, 'quote_challenge');
+    validate_enquiry_challenge($request);
 
     $validated = collect($validated)
-        ->except(['company_website', 'human_answer'])
+        ->except(['company_website', 'human_left', 'human_right', 'human_token', 'human_answer'])
         ->all();
 
     QuoteEnquiry::create($validated);
@@ -157,13 +166,16 @@ Route::post('/contact', function (Request $request) {
         'reason' => ['required', 'string', 'max:120'],
         'message' => ['required', 'string', 'max:4000'],
         'company_website' => ['prohibited'],
+        'human_left' => ['required', 'integer'],
+        'human_right' => ['required', 'integer'],
+        'human_token' => ['required', 'string'],
         'human_answer' => ['required', 'integer'],
     ]);
 
-    validate_enquiry_challenge($request, 'contact_challenge');
+    validate_enquiry_challenge($request);
 
     $validated = collect($validated)
-        ->except(['company_website', 'human_answer'])
+        ->except(['company_website', 'human_left', 'human_right', 'human_token', 'human_answer'])
         ->all();
 
     ContactEnquiry::create($validated);

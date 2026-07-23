@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -13,19 +14,20 @@ class EnquiryFormsTest extends TestCase
     public function test_quote_form_accepts_valid_submissions(): void
     {
         Mail::fake();
+        $challenge = $this->challenge(3, 4);
 
-        $this->withSession(['quote_challenge' => ['answer' => 7]])
-            ->post('/quote', [
-                'name' => 'Test User',
-                'email' => 'test@example.com',
-                'project_name' => 'Example Co',
-                'website' => 'https://example.com',
-                'project_type' => 'New website',
-                'budget' => '£1,500 - £3,000',
-                'timeframe' => '2-4 weeks',
-                'message' => 'I need a new website for my business.',
-                'human_answer' => 7,
-            ])
+        $this->post('/quote', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'project_name' => 'Example Co',
+            'website' => 'https://example.com',
+            'project_type' => 'New website',
+            'budget' => '£1,500 - £3,000',
+            'timeframe' => '2-4 weeks',
+            'message' => 'I need a new website for my business.',
+            ...$challenge,
+            'human_answer' => 7,
+        ])
             ->assertRedirect()
             ->assertSessionHasNoErrors()
             ->assertSessionHas('status');
@@ -41,15 +43,16 @@ class EnquiryFormsTest extends TestCase
     public function test_contact_form_accepts_valid_submissions(): void
     {
         Mail::fake();
+        $challenge = $this->challenge(4, 5);
 
-        $this->withSession(['contact_challenge' => ['answer' => 9]])
-            ->post('/contact', [
-                'name' => 'Test User',
-                'email' => 'test@example.com',
-                'reason' => 'Website project',
-                'message' => 'Can we talk about a website?',
-                'human_answer' => 9,
-            ])
+        $this->post('/contact', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'reason' => 'Website project',
+            'message' => 'Can we talk about a website?',
+            ...$challenge,
+            'human_answer' => 9,
+        ])
             ->assertRedirect()
             ->assertSessionHasNoErrors()
             ->assertSessionHas('status');
@@ -65,20 +68,33 @@ class EnquiryFormsTest extends TestCase
     public function test_contact_form_rejects_incorrect_anti_spam_answer(): void
     {
         Mail::fake();
+        $challenge = $this->challenge(4, 5);
 
-        $this->withSession(['contact_challenge' => ['answer' => 9]])
-            ->post('/contact', [
-                'name' => 'Test User',
-                'email' => 'test@example.com',
-                'reason' => 'Website project',
-                'message' => 'Can we talk about a website?',
-                'human_answer' => 8,
-            ])
+        $this->post('/contact', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'reason' => 'Website project',
+            'message' => 'Can we talk about a website?',
+            ...$challenge,
+            'human_answer' => 8,
+        ])
             ->assertRedirect()
             ->assertSessionHasErrors('human_answer');
 
         $this->assertDatabaseMissing('contact_enquiries', [
             'email' => 'test@example.com',
         ]);
+    }
+
+    /**
+     * @return array{human_left: int, human_right: int, human_token: string}
+     */
+    private function challenge(int $left, int $right): array
+    {
+        return [
+            'human_left' => $left,
+            'human_right' => $right,
+            'human_token' => hash_hmac('sha256', $left.'|'.$right, Config::get('app.key')),
+        ];
     }
 }
