@@ -893,6 +893,14 @@ a {
   resize: vertical;
 }
 
+.bot-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .agency-form input:focus,
 .agency-form select:focus,
 .agency-form textarea:focus {

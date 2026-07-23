@@ -92,6 +92,18 @@
         <textarea name="message" rows="6" required>{{ old('message') }}</textarea>
       </label>
 
+      <label class="bot-field" aria-hidden="true">
+        Company website
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off">
+      </label>
+
+      @isset($humanChallenge)
+        <label>
+          Quick anti-spam check: what is {{ $humanChallenge['left'] }} + {{ $humanChallenge['right'] }}?
+          <input type="number" name="human_answer" inputmode="numeric" required>
+        </label>
+      @endisset
+
       <button type="submit">Request Quote</button>
     </form>
   </section>

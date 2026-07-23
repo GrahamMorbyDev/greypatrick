@@ -29,8 +29,8 @@
     <meta property="og:site_name" content="Grey Patrick">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@GreySpectre82">
-    <meta name="twitter:creator" content="@GreySpectre82">
+    <meta name="twitter:site" content="@greypatrickAI">
+    <meta name="twitter:creator" content="@greypatrickAI">
     <meta name="twitter:title" content="{{ $title ?? 'Grey Patrick | West Sussex AI Systems & Website Agency' }}">
     <meta name="twitter:description" content="{{ $description ?? 'Professional websites, Laravel platforms and practical AI automation for West Sussex and South Coast businesses.' }}">
     <meta name="twitter:image" content="{{ asset('assets/grey-patrick-process-wall.png') }}">
@@ -67,7 +67,7 @@
               'name' => 'Grey Patrick',
               'sameAs' => [
                   'https://github.com/GrahamMorbyDev',
-                  'https://x.com/GreySpectre82',
+                  'https://x.com/GreyPatrickAI',
                   'https://www.linkedin.com/in/graham-patrick-4039352a7/',
               ],
           ],
@@ -82,7 +82,7 @@
           ],
           'sameAs' => [
               'https://github.com/GrahamMorbyDev',
-              'https://x.com/GreySpectre82',
+              'https://x.com/GreyPatrickAI',
               'https://www.linkedin.com/in/graham-patrick-4039352a7/',
           ],
       ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
@@ -127,7 +127,7 @@
         <nav aria-label="Footer links">
           <a href="mailto:grahampatrickdev@gmail.com">Email</a>
           <a href="https://github.com/GrahamMorbyDev" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://x.com/GreySpectre82" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://x.com/GreyPatrickAI" target="_blank" rel="noopener noreferrer">X</a>
           <a href="https://www.linkedin.com/in/graham-patrick-4039352a7/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </nav>
         <p>© 2026 Grey Patrick. Based in West Sussex on the South Coast of England.</p>

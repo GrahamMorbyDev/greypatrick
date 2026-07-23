@@ -26,9 +26,9 @@
         <span>GitHub</span>
         GrahamMorbyDev
       </a>
-      <a href="https://x.com/GreySpectre82" target="_blank" rel="noopener noreferrer">
+      <a href="https://x.com/GreyPatrickAI" target="_blank" rel="noopener noreferrer">
         <span>X</span>
-        @GreySpectre82
+        @greypatrickAI
       </a>
       <a href="https://www.linkedin.com/in/graham-patrick-4039352a7/" target="_blank" rel="noopener noreferrer">
         <span>LinkedIn</span>
@@ -65,6 +65,18 @@
         Message
         <textarea name="message" rows="7" required>{{ old('message') }}</textarea>
       </label>
+
+      <label class="bot-field" aria-hidden="true">
+        Company website
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off">
+      </label>
+
+      @isset($humanChallenge)
+        <label>
+          Quick anti-spam check: what is {{ $humanChallenge['left'] }} + {{ $humanChallenge['right'] }}?
+          <input type="number" name="human_answer" inputmode="numeric" required>
+        </label>
+      @endisset
 
       <button type="submit">Send Message</button>
     </form>

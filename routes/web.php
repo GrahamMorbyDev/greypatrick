@@ -7,6 +7,37 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
+
+if (! function_exists('enquiry_challenge')) {
+    function enquiry_challenge(Request $request, string $key): array
+    {
+        $challenge = [
+            'left' => random_int(3, 9),
+            'right' => random_int(2, 8),
+        ];
+
+        $request->session()->put($key, [
+            ...$challenge,
+            'answer' => $challenge['left'] + $challenge['right'],
+        ]);
+
+        return $challenge;
+    }
+}
+
+if (! function_exists('validate_enquiry_challenge')) {
+    function validate_enquiry_challenge(Request $request, string $key): void
+    {
+        $expected = $request->session()->pull($key.'.answer');
+
+        if ($expected === null || (int) $request->input('human_answer') !== (int) $expected) {
+            throw ValidationException::withMessages([
+                'human_answer' => 'Please answer the quick anti-spam question correctly.',
+            ]);
+        }
+    }
+}
 
 Route::get('/robots.txt', function () {
     return response()
@@ -59,8 +90,12 @@ Route::get('/sitemap.xml', function () {
 Route::view('/', 'pages.home')->name('home');
 Route::view('/services', 'pages.services')->name('services');
 Route::view('/work', 'pages.work')->name('work');
-Route::view('/quote', 'pages.quote')->name('quote');
-Route::view('/contact', 'pages.contact')->name('contact');
+Route::get('/quote', fn (Request $request) => view('pages.quote', [
+    'humanChallenge' => enquiry_challenge($request, 'quote_challenge'),
+]))->name('quote');
+Route::get('/contact', fn (Request $request) => view('pages.contact', [
+    'humanChallenge' => enquiry_challenge($request, 'contact_challenge'),
+]))->name('contact');
 Route::get('/blog', function () {
     return view('pages.blog.index', [
         'posts' => BlogPost::query()
@@ -93,13 +128,21 @@ Route::post('/quote', function (Request $request) {
         'budget' => ['nullable', 'string', 'max:80'],
         'timeframe' => ['nullable', 'string', 'max:80'],
         'message' => ['required', 'string', 'max:4000'],
+        'company_website' => ['prohibited'],
+        'human_answer' => ['required', 'integer'],
     ]);
+
+    validate_enquiry_challenge($request, 'quote_challenge');
+
+    $validated = collect($validated)
+        ->except(['company_website', 'human_answer'])
+        ->all();
 
     QuoteEnquiry::create($validated);
 
     Mail::raw(view('mail.quote', ['data' => $validated])->render(), function ($message) use ($validated) {
         $message
-            ->to('grahampatrickdev@gmail.com')
+            ->to(config('mail.to.address'))
             ->replyTo($validated['email'], $validated['name'])
             ->subject('New website quote request from '.$validated['name']);
     });
@@ -113,13 +156,21 @@ Route::post('/contact', function (Request $request) {
         'email' => ['required', 'email', 'max:160'],
         'reason' => ['required', 'string', 'max:120'],
         'message' => ['required', 'string', 'max:4000'],
+        'company_website' => ['prohibited'],
+        'human_answer' => ['required', 'integer'],
     ]);
+
+    validate_enquiry_challenge($request, 'contact_challenge');
+
+    $validated = collect($validated)
+        ->except(['company_website', 'human_answer'])
+        ->all();
 
     ContactEnquiry::create($validated);
 
     Mail::raw(view('mail.contact', ['data' => $validated])->render(), function ($message) use ($validated) {
         $message
-            ->to('grahampatrickdev@gmail.com')
+            ->to(config('mail.to.address'))
             ->replyTo($validated['email'], $validated['name'])
             ->subject('New contact enquiry from '.$validated['name']);
     });
