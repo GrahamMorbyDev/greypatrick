@@ -7,9 +7,11 @@ use App\Models\QuoteEnquiry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Throwable;
 
 class EnquiryController extends Controller
 {
@@ -53,12 +55,7 @@ class EnquiryController extends Controller
 
         QuoteEnquiry::create($validated);
 
-        Mail::raw(view('mail.quote', ['data' => $validated])->render(), function ($message) use ($validated) {
-            $message
-                ->to(config('mail.to.address'))
-                ->replyTo($validated['email'], $validated['name'])
-                ->subject('New website quote request from '.$validated['name']);
-        });
+        $this->sendEnquiryEmail('mail.quote', $validated, 'New website quote request from '.$validated['name']);
 
         return back()->with('status', 'Quote request sent. I will get back to you soon.');
     }
@@ -85,12 +82,7 @@ class EnquiryController extends Controller
 
         ContactEnquiry::create($validated);
 
-        Mail::raw(view('mail.contact', ['data' => $validated])->render(), function ($message) use ($validated) {
-            $message
-                ->to(config('mail.to.address'))
-                ->replyTo($validated['email'], $validated['name'])
-                ->subject('New contact enquiry from '.$validated['name']);
-        });
+        $this->sendEnquiryEmail('mail.contact', $validated, 'New contact enquiry from '.$validated['name']);
 
         return back()->with('status', 'Message sent. I will get back to you soon.');
     }
@@ -130,5 +122,27 @@ class EnquiryController extends Controller
     private function signChallenge(int $left, int $right): string
     {
         return hash_hmac('sha256', $left.'|'.$right, (string) Config::get('app.key'));
+    }
+
+    /**
+     * @param  array{name: string, email: string}  $data
+     */
+    private function sendEnquiryEmail(string $view, array $data, string $subject): void
+    {
+        try {
+            Mail::raw(view($view, ['data' => $data])->render(), function ($message) use ($data, $subject) {
+                $message
+                    ->to(config('mail.enquiry_recipient.address'), config('mail.enquiry_recipient.name'))
+                    ->replyTo($data['email'], $data['name'])
+                    ->subject($subject);
+            });
+        } catch (Throwable $exception) {
+            Log::error('Enquiry saved but email notification failed.', [
+                'email' => $data['email'],
+                'subject' => $subject,
+                'exception' => $exception::class,
+                'message' => $exception->getMessage(),
+            ]);
+        }
     }
 }

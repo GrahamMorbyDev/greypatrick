@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use RuntimeException;
 use Tests\TestCase;
 
 class EnquiryFormsTest extends TestCase
@@ -84,6 +86,45 @@ class EnquiryFormsTest extends TestCase
         $this->assertDatabaseMissing('contact_enquiries', [
             'email' => 'test@example.com',
         ]);
+    }
+
+    public function test_contact_form_still_saves_when_email_delivery_fails(): void
+    {
+        Log::spy();
+        Mail::shouldReceive('raw')
+            ->once()
+            ->andThrow(new RuntimeException('Resend failed'));
+
+        $challenge = $this->challenge(4, 5);
+
+        $this->post('/contact', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'reason' => 'Website project',
+            'message' => 'Can we talk about a website?',
+            ...$challenge,
+            'human_answer' => 9,
+        ])
+            ->assertRedirect()
+            ->assertSessionHasNoErrors()
+            ->assertSessionHas('status');
+
+        $this->assertDatabaseHas('contact_enquiries', [
+            'email' => 'test@example.com',
+            'reason' => 'Website project',
+            'status' => 'new',
+        ]);
+
+        Log::shouldHaveReceived('error')
+            ->once()
+            ->withArgs(fn (string $message): bool => $message === 'Enquiry saved but email notification failed.');
+    }
+
+    public function test_mail_recipient_config_does_not_use_reserved_global_to_address(): void
+    {
+        $this->assertNull(Config::get('mail.to'));
+        $this->assertSame('grahampatrickdev@gmail.com', Config::get('mail.enquiry_recipient.address'));
+        $this->assertSame('Grey Patrick', Config::get('mail.enquiry_recipient.name'));
     }
 
     /**
