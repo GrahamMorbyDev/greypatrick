@@ -92,4 +92,26 @@ class SitePagesTest extends TestCase
             ->assertSee($post->title)
             ->assertSee('Useful post body.', false);
     }
+
+    public function test_published_blog_posts_without_manual_publish_date_render_publicly(): void
+    {
+        $post = BlogPost::create([
+            'title' => 'Filament Created Post',
+            'slug' => 'filament-created-post',
+            'post' => '<p>This was created from the admin panel.</p>',
+            'author' => 'Grey Patrick',
+            'excerpt' => 'A post from Filament.',
+            'is_published' => true,
+        ]);
+
+        $this->assertNotNull($post->fresh()->published_at);
+
+        $this->get('/blog')
+            ->assertOk()
+            ->assertSee($post->title);
+
+        $this->get(route('blog.show', $post))
+            ->assertOk()
+            ->assertSee($post->title);
+    }
 }

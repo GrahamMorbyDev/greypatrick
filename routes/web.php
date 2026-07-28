@@ -22,9 +22,7 @@ Route::get('/sitemap.xml', function () {
     ]);
 
     $posts = BlogPost::query()
-        ->where('is_published', true)
-        ->whereNotNull('published_at')
-        ->where('published_at', '<=', now())
+        ->published()
         ->latest('published_at')
         ->get()
         ->map(fn (BlogPost $post): array => [
@@ -61,9 +59,7 @@ Route::get('/contact', [EnquiryController::class, 'contact'])->name('contact');
 Route::get('/blog', function () {
     return view('pages.blog.index', [
         'posts' => BlogPost::query()
-            ->where('is_published', true)
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now())
+            ->published()
             ->latest('published_at')
             ->paginate(9),
     ]);
@@ -71,7 +67,7 @@ Route::get('/blog', function () {
 
 Route::get('/blog/{blogPost:slug}', function (BlogPost $blogPost) {
     abort_unless(
-        $blogPost->is_published && $blogPost->published_at !== null && $blogPost->published_at->lte(now()),
+        $blogPost->is_published && ($blogPost->published_at === null || $blogPost->published_at->lte(now())),
         404,
     );
 

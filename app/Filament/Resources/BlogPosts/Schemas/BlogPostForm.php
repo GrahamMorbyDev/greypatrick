@@ -54,8 +54,10 @@ class BlogPostForm
                     ->schema([
                         Toggle::make('is_published')
                             ->label('Published')
+                            ->default(true)
                             ->live(),
                         DateTimePicker::make('published_at')
+                            ->default(now())
                             ->seconds(false),
                     ])
                     ->columns(2),
