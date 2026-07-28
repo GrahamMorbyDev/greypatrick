@@ -39,6 +39,7 @@ class BlogPostForm
                                     ->maxLength(255),
                                 FileUpload::make('image')
                                     ->image()
+                                    ->disk('public')
                                     ->directory('blog')
                                     ->imageEditor(),
                             ]),

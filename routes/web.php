@@ -4,12 +4,22 @@ use App\Http\Controllers\EnquiryController;
 use App\Models\BlogPost;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/robots.txt', function () {
     return response()
         ->view('seo.robots')
         ->header('Content-Type', 'text/plain');
 })->name('seo.robots');
+
+Route::get('/storage/blog/{path}', function (string $path) {
+    $file = 'blog/'.$path;
+
+    abort_unless(Storage::disk('public')->exists($file), 404);
+
+    return response(Storage::disk('public')->get($file))
+        ->header('Content-Type', Storage::disk('public')->mimeType($file) ?? 'application/octet-stream');
+})->where('path', '.*')->name('storage.blog');
 
 Route::get('/sitemap.xml', function () {
     $pages = collect([

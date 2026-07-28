@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\BlogPost;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class SitePagesTest extends TestCase
@@ -113,5 +114,15 @@ class SitePagesTest extends TestCase
         $this->get(route('blog.show', $post))
             ->assertOk()
             ->assertSee($post->title);
+    }
+
+    public function test_blog_storage_images_can_be_served_without_public_symlink(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('blog/test-image.jpg', 'fake image content');
+
+        $this->get('/storage/blog/test-image.jpg')
+            ->assertOk()
+            ->assertSee('fake image content', false);
     }
 }
