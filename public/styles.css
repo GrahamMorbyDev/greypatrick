@@ -313,6 +313,7 @@ a {
 .page-hero p:not(.eyebrow),
 .image-story p,
 .page-image-band p,
+.ad-section p,
 .section-intro p,
 .proof-grid p {
   max-width: 48rem;
@@ -460,7 +461,8 @@ a {
 .proof-band,
 .process-section,
 .image-story,
-.page-image-band {
+.page-image-band,
+.ad-section {
   display: grid;
   grid-template-columns: minmax(16rem, 0.42fr) minmax(0, 1fr);
   gap: clamp(1.6rem, 4vw, 3rem);
@@ -482,6 +484,7 @@ a {
 
 .image-story div,
 .page-image-band div,
+.ad-intro,
 .section-intro {
   display: grid;
   gap: 1rem;
@@ -492,7 +495,8 @@ a {
 .process-section h2,
 .cta-section h2,
 .image-story h2,
-.page-image-band h2 {
+.page-image-band h2,
+.ad-section h2 {
   max-width: 44rem;
   margin: 0.65rem 0 0;
   color: var(--paper);
@@ -749,6 +753,114 @@ a {
 
 .work-shot-rachel .shot-rows i:nth-child(2) {
   background: rgba(214, 167, 112, 0.5);
+}
+
+.ad-stack {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.site-ad {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(10rem, 1.1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  min-height: 7.2rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  color: var(--paper);
+  background:
+    linear-gradient(145deg, rgba(244, 239, 231, 0.08), rgba(244, 239, 231, 0.025)),
+    rgba(244, 239, 231, 0.045);
+  text-decoration: none;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.site-ad::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(17, 16, 14, 0.2), rgba(17, 16, 14, 0.78)),
+    radial-gradient(circle at 0% 50%, rgba(184, 148, 95, 0.16), transparent 15rem);
+}
+
+.site-ad::after {
+  position: absolute;
+  right: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(244, 239, 231, 0.22);
+  border-radius: 50%;
+  content: "";
+  background: rgba(17, 16, 14, 0.42);
+}
+
+.site-ad:hover,
+.site-ad:focus-visible {
+  border-color: rgba(184, 148, 95, 0.5);
+  outline: none;
+  transform: translateX(4px);
+  box-shadow: 0 1.5rem 4.2rem rgba(0, 0, 0, 0.26);
+}
+
+.site-ad span,
+.site-ad strong,
+.site-ad em {
+  position: relative;
+  z-index: 1;
+}
+
+.site-ad span {
+  color: var(--accent-strong);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-ad strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+}
+
+.site-ad em {
+  max-width: 22rem;
+  color: var(--paper-soft);
+  font-size: 0.9rem;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.site-ad-dce {
+  background:
+    linear-gradient(90deg, rgba(28, 38, 64, 0.64), rgba(17, 16, 14, 0.82)),
+    url("/assets/grey-patrick-process-wall.png") center / cover;
+}
+
+.site-ad-mesh {
+  background:
+    linear-gradient(90deg, rgba(37, 64, 44, 0.64), rgba(17, 16, 14, 0.82)),
+    url("/assets/grey-patrick-portrait.png") center / cover;
+}
+
+.site-ad-bite {
+  background:
+    linear-gradient(90deg, rgba(89, 62, 34, 0.64), rgba(17, 16, 14, 0.82)),
+    url("/assets/grey-patrick-ai-desk.png") center / cover;
+}
+
+.site-ad-c3d {
+  background:
+    linear-gradient(90deg, rgba(39, 69, 81, 0.64), rgba(17, 16, 14, 0.82)),
+    url("/assets/grey-patrick-workflow-desk.png") center / cover;
 }
 
 .tag-list {
@@ -1173,7 +1285,8 @@ a {
   .process-section,
   .form-layout,
   .image-story,
-  .page-image-band {
+  .page-image-band,
+  .ad-section {
     grid-template-columns: 1fr;
   }
 
@@ -1181,7 +1294,8 @@ a {
   .work-grid,
   .service-detail-grid,
   .process-list,
-  .blog-grid {
+  .blog-grid,
+  .proof-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1284,6 +1398,11 @@ a {
   .image-story img,
   .page-image-band img {
     min-height: 18rem;
+  }
+
+  .site-ad {
+    grid-template-columns: 1fr;
+    min-height: 10rem;
   }
 
   .site-footer {

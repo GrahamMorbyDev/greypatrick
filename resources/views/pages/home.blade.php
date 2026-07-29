@@ -125,6 +125,40 @@
     </div>
   </section>
 
+  <section class="section-pad ad-section">
+    <div class="ad-intro">
+      <p class="eyebrow">Network Spotlight</p>
+      <h2>Sites built by Grey Patrick, promoted across the network.</h2>
+      <p>
+        These are banner-style placements for sites in the Grey Patrick build
+        network: clear, commercial and designed to send visitors somewhere useful.
+      </p>
+    </div>
+
+    <div class="ad-stack" aria-label="Featured network adverts">
+      <a class="site-ad site-ad-dce" href="https://digitalcontentengine.com/" target="_blank" rel="noopener noreferrer">
+        <span>Featured Platform</span>
+        <strong>Digital Content Engine</strong>
+        <em>AI content workflows, campaigns and publishing systems</em>
+      </a>
+      <a class="site-ad site-ad-mesh" href="https://mesh-medic.com/" target="_blank" rel="noopener noreferrer">
+        <span>Featured Service</span>
+        <strong>Mesh Medic</strong>
+        <em>Specialist repair enquiries with a clean, trusted customer path</em>
+      </a>
+      <a class="site-ad site-ad-bite" href="https://bitesaavy.com/" target="_blank" rel="noopener noreferrer">
+        <span>Featured Food Tech</span>
+        <strong>BiteSaavy</strong>
+        <em>Food-focused discovery, storytelling and digital product presence</em>
+      </a>
+      <a class="site-ad site-ad-c3d" href="https://chichester3dprinting.com/" target="_blank" rel="noopener noreferrer">
+        <span>Featured Local Service</span>
+        <strong>Chichester 3D Printing</strong>
+        <em>Local 3D printing services with simple enquiry routes</em>
+      </a>
+    </div>
+  </section>
+
   <section class="section-pad image-story">
     <img src="{{ asset('assets/grey-patrick-ai-desk.png') }}" alt="Grey Patrick working on AI planning tools at a laptop">
     <div>

@@ -45,6 +45,18 @@ class SitePagesTest extends TestCase
             ->assertSee('https://gameshopcosham.com/', false);
     }
 
+    public function test_homepage_shows_network_ad_banners(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Network Spotlight')
+            ->assertSee('Mesh Medic')
+            ->assertSee('Digital Content Engine')
+            ->assertSee('BiteSaavy')
+            ->assertSee('Chichester 3D Printing')
+            ->assertSee('https://mesh-medic.com/', false);
+    }
+
     public function test_homepage_has_local_seo_metadata(): void
     {
         $this->get('/')
