@@ -26,6 +26,7 @@ Route::get('/sitemap.xml', function () {
         ['loc' => route('home'), 'lastmod' => Carbon::today(), 'changefreq' => 'weekly', 'priority' => '1.0'],
         ['loc' => route('services'), 'lastmod' => Carbon::today(), 'changefreq' => 'monthly', 'priority' => '0.9'],
         ['loc' => route('work'), 'lastmod' => Carbon::today(), 'changefreq' => 'monthly', 'priority' => '0.8'],
+        ['loc' => route('links'), 'lastmod' => Carbon::today(), 'changefreq' => 'weekly', 'priority' => '0.8'],
         ['loc' => route('blog.index'), 'lastmod' => Carbon::today(), 'changefreq' => 'weekly', 'priority' => '0.7'],
         ['loc' => route('quote'), 'lastmod' => Carbon::today(), 'changefreq' => 'monthly', 'priority' => '0.9'],
         ['loc' => route('contact'), 'lastmod' => Carbon::today(), 'changefreq' => 'monthly', 'priority' => '0.7'],
@@ -64,6 +65,7 @@ Route::get('/sitemap.xml', function () {
 Route::view('/', 'pages.home')->name('home');
 Route::view('/services', 'pages.services')->name('services');
 Route::view('/work', 'pages.work')->name('work');
+Route::view('/links', 'pages.links')->name('links');
 Route::get('/quote', [EnquiryController::class, 'quote'])->name('quote');
 Route::get('/contact', [EnquiryController::class, 'contact'])->name('contact');
 Route::get('/blog', function () {

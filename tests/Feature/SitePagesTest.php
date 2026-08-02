@@ -17,6 +17,7 @@ class SitePagesTest extends TestCase
             '/' => 'Grey Patrick',
             '/services' => 'Services',
             '/work' => 'Selected Work',
+            '/links' => 'Work with Graham',
             '/blog' => 'Blog',
             '/quote' => 'Project Quote',
             '/contact' => 'Contact',
@@ -81,6 +82,7 @@ class SitePagesTest extends TestCase
             ->assertHeader('content-type', 'application/xml; charset=UTF-8')
             ->assertSee('<loc>'.route('home').'</loc>', false)
             ->assertSee('<loc>'.route('services').'</loc>', false)
+            ->assertSee('<loc>'.route('links').'</loc>', false)
             ->assertSee('<loc>'.route('quote').'</loc>', false);
     }
 

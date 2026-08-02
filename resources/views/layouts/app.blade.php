@@ -126,6 +126,7 @@
         </div>
         <nav aria-label="Footer links">
           <a href="mailto:grahampatrickdev@gmail.com">Email</a>
+          <a href="{{ route('links') }}">Links</a>
           <a href="https://github.com/GrahamMorbyDev" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://x.com/GreyPatrickAI" target="_blank" rel="noopener noreferrer">X</a>
           <a href="https://www.linkedin.com/in/graham-patrick-4039352a7/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
