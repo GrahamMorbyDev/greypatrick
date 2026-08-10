@@ -19,9 +19,9 @@
   <section class="section-pad blog-grid">
     @forelse ($posts as $post)
       <article class="blog-card">
-        <a href="{{ route('blog.show', $post) }}" aria-label="Read {{ $post->title }}">
+        <a href="{{ route('blog.show', $post->slug) }}" aria-label="Read {{ $post->title }}">
           @if ($post->image)
-            <img src="{{ asset('storage/'.$post->image) }}" alt="">
+            <img src="{{ $post->image }}" alt="{{ $post->imageAlt ?? '' }}">
           @else
             <img src="{{ asset('assets/grey-patrick-workflow-desk.png') }}" alt="">
           @endif

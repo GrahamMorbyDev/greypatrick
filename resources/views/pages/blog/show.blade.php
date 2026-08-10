@@ -1,33 +1,33 @@
 @extends('layouts.app', [
-  'title' => $post->title.' | Grey Patrick',
-  'description' => $post->excerpt ?? 'An article by Grey Patrick.',
-  'canonical' => route('blog.show', $post),
-  'keywords' => 'Grey Patrick, AI automation, Laravel development, website strategy, business systems, OpenAI workflows, West Sussex web developer',
+  'title' => ($post->seoTitle ?? $post->title.' | Grey Patrick'),
+  'description' => $post->seoDescription ?? $post->excerpt ?? 'An article by Grey Patrick.',
+  'canonical' => route('blog.show', $post->slug),
+  'keywords' => filled($post->keywords) ? implode(', ', $post->keywords) : 'Grey Patrick, AI automation, Laravel development, website strategy, business systems, OpenAI workflows, West Sussex web developer',
   'shellClass' => 'content-shell',
   'structuredData' => [
-      '@context' => 'https://schema.org',
-      '@type' => 'BlogPosting',
+      '@'.'context' => 'https://schema.org',
+      '@'.'type' => 'BlogPosting',
       'headline' => $post->title,
-      'description' => $post->excerpt ?? 'An article by Grey Patrick.',
-      'image' => $post->image ? asset('storage/'.$post->image) : asset('assets/grey-patrick-workflow-desk.png'),
+      'description' => $post->seoDescription ?? $post->excerpt ?? 'An article by Grey Patrick.',
+      'image' => $post->image ?: asset('assets/grey-patrick-workflow-desk.png'),
       'datePublished' => optional($post->published_at)->toIso8601String(),
       'dateModified' => optional($post->updated_at)->toIso8601String(),
       'author' => [
-          '@type' => 'Person',
+          '@'.'type' => 'Person',
           'name' => $post->author,
           'url' => url('/'),
       ],
       'publisher' => [
-          '@type' => 'Organization',
+          '@'.'type' => 'Organization',
           'name' => 'Grey Patrick',
           'logo' => [
-              '@type' => 'ImageObject',
+              '@'.'type' => 'ImageObject',
               'url' => asset('assets/apple-touch-icon.png'),
           ],
       ],
       'mainEntityOfPage' => [
-          '@type' => 'WebPage',
-          '@id' => route('blog.show', $post),
+          '@'.'type' => 'WebPage',
+          '@'.'id' => route('blog.show', $post->slug),
       ],
   ],
 ])
@@ -44,7 +44,7 @@
 
     <section class="section-pad article-layout">
       @if ($post->image)
-        <img class="article-image" src="{{ asset('storage/'.$post->image) }}" alt="">
+        <img class="article-image" src="{{ $post->image }}" alt="{{ $post->imageAlt ?? '' }}">
       @else
         <img class="article-image" src="{{ asset('assets/grey-patrick-workflow-desk.png') }}" alt="">
       @endif

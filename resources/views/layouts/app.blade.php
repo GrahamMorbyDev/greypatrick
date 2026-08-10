@@ -45,9 +45,9 @@
     <link rel="stylesheet" href="{{ asset('styles.css') }}">
     <script type="application/ld+json">
       {!! json_encode($structuredData ?? [
-          '@context' => 'https://schema.org',
-          '@type' => 'ProfessionalService',
-          '@id' => url('/').'#business',
+          '@'.'context' => 'https://schema.org',
+          '@'.'type' => 'ProfessionalService',
+          '@'.'id' => url('/').'#business',
           'name' => 'Grey Patrick',
           'alternateName' => 'Graham Patrick',
           'url' => url('/'),
@@ -55,15 +55,15 @@
           'description' => 'Professional websites, Laravel platforms and practical AI automation systems for businesses in West Sussex and across the South Coast.',
           'email' => 'grahampatrickdev@gmail.com',
           'areaServed' => [
-              ['@type' => 'AdministrativeArea', 'name' => 'West Sussex'],
-              ['@type' => 'City', 'name' => 'Chichester'],
-              ['@type' => 'City', 'name' => 'Worthing'],
-              ['@type' => 'City', 'name' => 'Bognor Regis'],
-              ['@type' => 'City', 'name' => 'Portsmouth'],
-              ['@type' => 'AdministrativeArea', 'name' => 'South Coast England'],
+              ['@'.'type' => 'AdministrativeArea', 'name' => 'West Sussex'],
+              ['@'.'type' => 'City', 'name' => 'Chichester'],
+              ['@'.'type' => 'City', 'name' => 'Worthing'],
+              ['@'.'type' => 'City', 'name' => 'Bognor Regis'],
+              ['@'.'type' => 'City', 'name' => 'Portsmouth'],
+              ['@'.'type' => 'AdministrativeArea', 'name' => 'South Coast England'],
           ],
           'founder' => [
-              '@type' => 'Person',
+              '@'.'type' => 'Person',
               'name' => 'Grey Patrick',
               'sameAs' => [
                   'https://github.com/GrahamMorbyDev',

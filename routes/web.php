@@ -1,7 +1,8 @@
 <?php
 
+use App\Data\DceBlogPost;
 use App\Http\Controllers\EnquiryController;
-use App\Models\BlogPost;
+use App\Services\DceBlogRepository;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -32,13 +33,11 @@ Route::get('/sitemap.xml', function () {
         ['loc' => route('contact'), 'lastmod' => Carbon::today(), 'changefreq' => 'monthly', 'priority' => '0.7'],
     ]);
 
-    $posts = BlogPost::query()
-        ->published()
-        ->latest('published_at')
-        ->get()
-        ->map(fn (BlogPost $post): array => [
-            'loc' => route('blog.show', $post),
-            'lastmod' => $post->updated_at ?? $post->published_at,
+    $posts = app(DceBlogRepository::class)
+        ->all()
+        ->map(fn (DceBlogPost $post): array => [
+            'loc' => route('blog.show', $post->slug),
+            'lastmod' => $post->updated_at ?? $post->published_at ?? Carbon::today(),
             'changefreq' => 'monthly',
             'priority' => '0.6',
         ]);
@@ -68,24 +67,18 @@ Route::view('/work', 'pages.work')->name('work');
 Route::view('/links', 'pages.links')->name('links');
 Route::get('/quote', [EnquiryController::class, 'quote'])->name('quote');
 Route::get('/contact', [EnquiryController::class, 'contact'])->name('contact');
-Route::get('/blog', function () {
+Route::get('/blog', function (DceBlogRepository $blogs) {
     return view('pages.blog.index', [
-        'posts' => BlogPost::query()
-            ->published()
-            ->latest('published_at')
-            ->paginate(9),
+        'posts' => $blogs->paginate(9),
     ]);
 })->name('blog.index');
 
-Route::get('/blog/{blogPost:slug}', function (BlogPost $blogPost) {
-    abort_unless(
-        $blogPost->is_published && ($blogPost->published_at === null || $blogPost->published_at->lte(now())),
-        404,
-    );
+Route::get('/blog/{slug}', function (string $slug, DceBlogRepository $blogs) {
+    $post = $blogs->findBySlug($slug);
 
-    return view('pages.blog.show', [
-        'post' => $blogPost,
-    ]);
+    abort_unless($post, 404);
+
+    return view('pages.blog.show', ['post' => $post]);
 })->name('blog.show');
 
 Route::post('/quote', [EnquiryController::class, 'submitQuote'])->name('quote.submit');

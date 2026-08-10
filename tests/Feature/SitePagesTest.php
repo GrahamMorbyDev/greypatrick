@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\BlogPost;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -13,6 +14,8 @@ class SitePagesTest extends TestCase
 
     public function test_public_pages_render_successfully(): void
     {
+        $this->fakeDceBlogs();
+
         $pages = [
             '/' => 'Grey Patrick',
             '/services' => 'Services',
@@ -71,6 +74,8 @@ class SitePagesTest extends TestCase
 
     public function test_search_files_render(): void
     {
+        $this->fakeDceBlogs();
+
         $this->get('/robots.txt')
             ->assertOk()
             ->assertHeader('content-type', 'text/plain; charset=UTF-8')
@@ -83,51 +88,40 @@ class SitePagesTest extends TestCase
             ->assertSee('<loc>'.route('home').'</loc>', false)
             ->assertSee('<loc>'.route('services').'</loc>', false)
             ->assertSee('<loc>'.route('links').'</loc>', false)
+            ->assertSee('<loc>'.route('blog.show', 'dce-blog-1').'</loc>', false)
             ->assertSee('<loc>'.route('quote').'</loc>', false);
     }
 
-    public function test_published_blog_posts_render_publicly(): void
+    public function test_dce_blog_posts_render_publicly(): void
     {
-        $post = BlogPost::create([
-            'title' => 'AI Content Systems',
-            'slug' => 'ai-content-systems',
-            'post' => '<p>Useful post body.</p>',
-            'author' => 'Grey Patrick',
-            'excerpt' => 'A short summary.',
-            'is_published' => true,
-            'published_at' => now(),
-        ]);
+        $this->fakeDceBlogs();
 
         $this->get('/blog')
             ->assertOk()
-            ->assertSee($post->title);
+            ->assertSee('DCE Blog 01')
+            ->assertSee('https://digitalcontentengine.com/storage/blog-1.webp', false);
 
-        $this->get(route('blog.show', $post))
+        $this->get(route('blog.show', 'dce-blog-1'))
             ->assertOk()
-            ->assertSee($post->title)
-            ->assertSee('Useful post body.', false);
+            ->assertSee('DCE Blog 01')
+            ->assertSee('Useful DCE post body.', false)
+            ->assertSee('DCE SEO Title 1');
     }
 
-    public function test_published_blog_posts_without_manual_publish_date_render_publicly(): void
+    public function test_dce_blog_posts_paginate_nine_per_page(): void
     {
-        $post = BlogPost::create([
-            'title' => 'Filament Created Post',
-            'slug' => 'filament-created-post',
-            'post' => '<p>This was created from the admin panel.</p>',
-            'author' => 'Grey Patrick',
-            'excerpt' => 'A post from Filament.',
-            'is_published' => true,
-        ]);
-
-        $this->assertNotNull($post->fresh()->published_at);
+        $this->fakeDceBlogs(count: 10);
 
         $this->get('/blog')
             ->assertOk()
-            ->assertSee($post->title);
+            ->assertSee('DCE Blog 01')
+            ->assertSee('DCE Blog 09')
+            ->assertDontSee('DCE Blog 10');
 
-        $this->get(route('blog.show', $post))
+        $this->get('/blog?page=2')
             ->assertOk()
-            ->assertSee($post->title);
+            ->assertSee('DCE Blog 10')
+            ->assertDontSee('DCE Blog 01');
     }
 
     public function test_blog_storage_images_can_be_served_without_public_symlink(): void
@@ -138,5 +132,38 @@ class SitePagesTest extends TestCase
         $this->get('/storage/blog/test-image.jpg')
             ->assertOk()
             ->assertSee('fake image content', false);
+    }
+
+    private function fakeDceBlogs(int $count = 2): void
+    {
+        Cache::flush();
+        Cache::forget('dce.blogs.'.md5((string) config('services.dce.blogs_url')));
+
+        Http::fake([
+            config('services.dce.blogs_url') => Http::response([
+                'blogs' => collect(range(1, $count))
+                    ->map(fn (int $number): array => [
+                        'id' => $number,
+                        'campaign_id' => 8,
+                        'week_start' => now()->subWeeks($number)->toDateString(),
+                        'topic' => 'DCE Topic '.$number,
+                        'title' => 'DCE Blog '.str_pad((string) $number, 2, '0', STR_PAD_LEFT),
+                        'slug' => 'dce-blog-'.$number,
+                        'excerpt' => 'DCE excerpt '.$number,
+                        'body_markdown' => '# DCE Blog '.$number."\n\nUseful DCE post body.",
+                        'meta' => [
+                            'tags' => ['Laravel', 'AI'],
+                            'keywords' => ['DCE keyword '.$number],
+                            'seo_title' => 'DCE SEO Title '.$number,
+                            'seo_description' => 'DCE SEO description '.$number,
+                        ],
+                        'image' => [
+                            'url' => 'https://digitalcontentengine.com/storage/blog-'.$number.'.webp',
+                            'alt_text' => 'DCE blog image '.$number,
+                        ],
+                    ])
+                    ->all(),
+            ]),
+        ]);
     }
 }
